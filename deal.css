@@ -1,0 +1,393 @@
+/**
+ * Copyright (C) 2012 Pauli Nieminen
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+.diagram {
+	max-width: 27em;
+	margin-top: 6px;
+	margin-bottom: 6px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	border: thin;
+	box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.4);
+	border-radius: 10px;
+	padding: 1px;
+	font-size: 130%;
+	overflow: hidden;
+}
+
+.diagram .info {
+	float: left;
+	text-align: left;
+	white-space: nowrap;
+	margin: 6px 6px 0;
+	padding: 0.25em;
+	border: thin;
+	box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.4);
+	border-radius: 5px;
+	position: relative;
+}
+
+.diagram .info.right {
+	float: right;
+}
+
+.diagram .info div {
+	display: inline-block;
+	text-size: smaller;
+}
+
+.diagram .info .number {
+	font-size: 170%;
+	float: left;
+	margin-right: 0.25em;
+}
+
+.diagram .hand {
+	max-width: 9em;
+	width: 7.5em;
+	border: thin gray;
+	box-shadow: 0 0 3px 1px rgba(64, 64, 64, 0.4);
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	padding: 0.5ex;
+	white-space: nowrap;
+	padding: 1px;
+	border-radius: 5px;
+}
+
+.diagram .name, .diagram .seat {
+	padding-left: 1ex;
+	border-bottom: 1px solid #AAAAAA;
+}
+
+.diagram .name {
+	padding-left: 0.3ex;
+}
+
+.diagram .name:before {
+	font-weight: normal;
+	border-right: thin solid #AAAAAA;
+	margin-right: 0.5ex;
+	padding-right: 0.5ex;
+}
+
+.diagram .nnorth.name:before {
+	content: "N";
+}
+
+.diagram .nsouth.name:before {
+	content: "S";
+}
+
+.diagram .neast.name:before {
+	content: "E";
+}
+
+.diagram .nwest.name:before {
+	content: "W";
+}
+
+.diagram .north + .south,
+.diagram .north + .bids + .south,
+.diagram .north + .bids,
+.diagram .north + .controls,
+.diagram .north + .controls + .south,
+.diagram .north + .controls + .bids + .south {
+	margin-top: 3em;
+}
+
+.diagram .north {
+}
+
+.diagram .south, .diagram .north {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.diagram .west + .south,
+.diagram .west + .bids + .south,
+.diagram .west + .east + .bids + .south {
+	clear: left;
+}
+
+.diagram .east {
+	float: right;
+}
+
+.diagram .west {
+	clear: left;
+	float: left;
+}
+
+.diagram .seat {
+	font-style: italic;
+}
+
+.diagram .name {
+	font-weight: bold;
+}
+
+.diagram .cards {
+	line-height: 1;
+}
+
+.diagram .hand.hidden .cards {
+	visibility: hidden;
+}
+
+.diagram .hand .cards .played {
+	opacity: 0.5;
+}
+
+.diagram .ew_wrapper {
+	width: 100%;
+	position: relative;
+}
+
+.diagram .playarea {
+	width: 5em;
+	height: 5em;
+	margin: auto;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	position: absolute;
+}
+
+.diagram .anim {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: table;
+	margin: auto;
+}
+
+.diagram .cards:before {
+	font-weight: bold;
+	font-size: 120%;
+	font-family: "Courier New",Courier,monospace;
+	letter-spacing: 2px;
+	visibility: visible;
+}
+
+.diagram .cards.s:before {
+	content: "♠";
+	color: #000000;
+}
+
+.diagram .cards.h:before {
+	content: "♥";
+	color: #CB0000;
+}
+
+.diagram .cards.d:before {
+	content: "♦";
+	color: #CB0000;
+}
+
+.diagram .cards.c:before {
+	content: "♣";
+	color: #000000;
+}
+
+.sred, .sblack {
+	font-weight: bold;
+	font-size: 113%;
+}
+
+.double, .redouble {
+	font-weight: bold;
+}
+
+.sred {
+	color: #CB0000;
+}
+
+.sblack {
+	color: #000000;
+}
+
+.double {
+	color: #CB0000;
+}
+
+.redouble {
+	color: #0000FF;
+}
+
+.pass {
+	color: #00CB00;
+}
+
+.bad {
+	color: #DF0000;
+}
+
+.good {
+	color: #00BC00;
+}
+
+table.bids, .post_group_links, table.results {
+	margin: 8px auto;
+	border-spacing: 0px;
+	box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.4);
+	border-radius: 5px;
+}
+
+table.results td, table.results th {
+	font-size: 125%;
+	text-align: left;
+}
+
+table.results {
+	margin: 8px;
+}
+
+.bids td, .bids th, .results td, .results th {
+	border-right: 1px solid #AAAAAA;
+	border-bottom: 1px solid #AAAAAA;
+	padding-right: 0.5ex;
+	padding-left: 0.5ex;
+}
+
+.bids td:first-child, .bids th:first-child, .results td:first-child, .results th:first-child {
+	border-left: 1px solid #AAAAAA;
+	padding-right: 1.5ex;
+}
+
+.bids.history td {
+	text-align: center;
+}
+
+.bids .vuln {
+	background: #FF5050;
+}
+
+.bids th, .results th {
+	border-top: 1px solid #AAAAAA;
+	text-align: left;
+	padding: 0.5ex 1.0ex;
+}
+
+.bids.history {
+	font-size: 70%;
+	float: right;
+	clear: right;
+	margin: 4px;
+}
+
+.diagram .west + .bids {
+	clear: left;
+}
+
+.bids.history th, .bids.history td {
+	padding: 0.3ex 0.5ex;
+	text-align: center;
+}
+
+.bids.history th:first-child, .bids.history td:first-child {
+	padding: 0.3ex 0.5ex;
+}
+
+.bids .bid.alert {
+	background: lightYellow;
+	border: thin solid lightOrange;
+	border-radius: 5px;
+	box-shadow: 0 0 3px 1px rgba(255, 165, 0, 0.8);
+	margin: 1px;
+}
+
+.bids .bid + .declaration {
+	display: none;
+	position: absolute;
+	border: thin none;
+	border-radius: 5px;
+	box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.7);
+	display: none;
+	margin: 1ex auto;
+	position: absolute;
+	background: white;
+	padding: 0.5ex;
+	font-size: 130%;
+}
+
+.bids .bid:hover + .declaration {
+	display: block;
+}
+
+.diagram .controls {
+	float: left;
+	margin-top: 1.5em;
+	font-size: 80%;
+}
+
+.diagram .controls .tricks.ns:before {
+	content: "NS: ";
+}
+
+.diagram .controls .tricks.ew:before {
+	content: "EW: ";
+}
+
+.diagram .controls .tricks, 
+.contract {
+	padding-left: 0.5ex;
+	padding-right: 0.3ex;
+	display: inline-block;
+}
+
+.hand .contract {
+	padding-left: 2ex;
+}
+
+.hand.toplay .name,
+.hand.toplay .seat {
+	border-radius: 5px;
+	background: lightYellow;
+}
+
+.post_group_links {
+	margin: auto;
+	padding: 0.3ex;
+	display: inline-block;
+}
+
+ol.post_group_link_list {
+	margin: 0;
+	padding-right: 1ex;
+	padding-left: 2em;
+}
+
+li.post_group_link_list {
+	margin: 0;
+	padding: 0;
+}
+
+li.post_group_link_list ol {
+	font-size: 85%;
+}
