@@ -246,4 +246,52 @@ describe("Card class suit", function() {
 		expect(b.getRank()).toBe('6');
 		expect(b.toString()).toBe('♦6');
 	});
+
+	it("Marking alternative maybe better", function() {
+		var a;
+
+		expect(function() { c = card.parseCard('♣', 'a'); }).not.toThrow();
+		expect(function() { c.markMaybe(); }).toThrow();
+		expect(c.suit).toBe(deal.clubs);
+		expect(c.rank).toBe(14);
+		expect(c.getRank()).toBe('A');
+		expect(c.toString()).toBe('♣A');
+
+		expect(function() { a = card.parseCard('D', '4'); }).not.toThrow();
+		expect(function() { a.markMaybe(); }).toThrow();
+		expect(a.suit).toBe(deal.diamonds);
+		expect(a.rank).toBe(4);
+		expect(a.getRank()).toBe('4');
+		expect(a.toString()).toBe('♦4');
+
+		expect(function() { c.appendAlternative(a); }).not.toThrow();
+		expect(c.suit).toBe(deal.clubs);
+		expect(c.rank).toBe(14);
+		expect(c.getRank()).toBe('A');
+		expect(c.toString()).toBe('♣A(♦4)');
+		expect(a.suit).toBe(deal.diamonds);
+		expect(a.rank).toBe(4);
+		expect(a.getRank()).toBe('4');
+		expect(a.toString()).toBe('♦4');
+
+		expect(function() { c.markMaybe(); }).toThrow();
+		expect(c.suit).toBe(deal.clubs);
+		expect(c.rank).toBe(14);
+		expect(c.getRank()).toBe('A');
+		expect(c.toString()).toBe('♣A(♦4)');
+		expect(a.suit).toBe(deal.diamonds);
+		expect(a.rank).toBe(4);
+		expect(a.getRank()).toBe('4');
+		expect(a.toString()).toBe('♦4');
+
+		expect(function() { a.markMaybe(); }).not.toThrow();
+		expect(c.suit).toBe(deal.clubs);
+		expect(c.rank).toBe(14);
+		expect(c.getRank()).toBe('A');
+		expect(c.toString()).toBe('♣A(♦4%)');
+		expect(a.suit).toBe(deal.diamonds);
+		expect(a.rank).toBe(4);
+		expect(a.getRank()).toBe('4');
+		expect(a.toString()).toBe('♦4%');
+	});
 });
