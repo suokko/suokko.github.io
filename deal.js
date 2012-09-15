@@ -361,13 +361,20 @@
 
 	card.prototype = {
 		appendAlternative: function(card) {
+			if (this.maybe !== undefined)
+				throw "Cannot add an alternative to an alternative card";
+			if (card.maybe !== undefined)
+				throw "Cannot add an alternative card again";
 			if (this.alternative === undefined)
 				this.alternative = [];
 			this.alternative.push(card);
+			card.maybe = false;
 			return this;
 		},
 
 		markMaybe: function() {
+			if (this.maybe === undefined)
+				throw "Can only set maybe for an alternative card";
 			this.maybe = true;
 			return this;
 		},
@@ -420,7 +427,7 @@
 				}
 				r += ')';
 			}
-			if (this.maybe !== undefined)
+			if (this.maybe !== undefined && this.maybe)
 				r += '%';
 			return r;
 		},
