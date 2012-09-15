@@ -372,6 +372,29 @@
 			return this;
 		},
 
+		getRank: function() {
+			switch (this.rank) {
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+			case 10:
+				return this.rank.toString();
+			case 11:
+				return 'J';
+			case 12:
+				return 'Q';
+			case 13:
+				return 'K';
+			case 14:
+				return 'A';
+			}
+		},
+
 		toString: function() {
 			var r;
 
@@ -389,31 +412,7 @@
 				r = "♣";
 				break;
 			}
-			switch (this.rank) {
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9:
-			case 10:
-				r += this.rank;
-				break;
-			case 11:
-				r += 'J';
-				break;
-			case 12:
-				r += 'Q';
-				break;
-			case 13:
-				r += 'K';
-				break;
-			case 14:
-				r += 'A';
-				break;
-			}
+			r += this.getRank();
 			if (this.alternative !== undefined) {
 				r += '(';
 				for (var i = 0; i < this.alternative.length; i++) {
@@ -435,6 +434,29 @@
 	};
 
 	cards.prototype = {
+		validate: function(element) {
+			return true;
+		},
+
+		hasCard: function(card) {
+			var s;
+			switch (card.suit) {
+			case deal.spades:
+				s = this.spades;
+				break;
+			case deal.hearts:
+				s = this.hearts;
+				break;
+			case deal.diamonds:
+				s = this.diamonds;
+				break;
+			case deal.clubs:
+				s = this.clubs;
+				break;
+			}
+			return s.indexOf(card.getRank()) >= 0;
+		},
+
 		toString: function() {
 			return this.spades + "<br />" +
 				this.hearts + "<br />" +
@@ -1063,5 +1085,6 @@
 	window.play = play;
 	window.deal = deal;
 	window.cards = cards;
+	window.card = card;
 	window.biding = biding;
 })(window);
