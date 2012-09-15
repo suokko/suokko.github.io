@@ -437,7 +437,7 @@
 		},
 	};
 
-	var cards = function(spades, hearts, diamonds, clubs) {
+	var hand = function(spades, hearts, diamonds, clubs) {
 		var invalid = [];
 		var duplicate = [];
 		var parseSuit = function(suit, text) {
@@ -480,7 +480,7 @@
 			this.valid.push("There are " + total_cards + " cards.");
 	};
 
-	cards.prototype = {
+	hand.prototype = {
 		validate: function(element) {
 			return this.valid.join("<br/>");
 		},
@@ -1139,7 +1139,7 @@
 
 	window.play = play;
 	window.deal = deal;
-	window.cards = cards;
+	window.hand = hand;
 	window.card = card;
 	window.biding = biding;
 })(window);
