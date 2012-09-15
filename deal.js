@@ -65,10 +65,10 @@
 					content.append("<div class='n" + name.toLowerCase() + " name'>" + player + "</div>");
 				else
 					content.append("<div class='seat'>" + name + "</div>");
-				content.append("<div class='cards s'>" + hand.spades + "</div>");
-				content.append("<div class='cards h'>" + hand.hearts + "</div>");
-				content.append("<div class='cards d'>" + hand.diamonds + "</div>");
-				content.append("<div class='cards c'>" + hand.clubs + "</div>");
+				content.append("<div class='cards s'>" + hand.getSuit(deal.spades) + "</div>");
+				content.append("<div class='cards h'>" + hand.getSuit(deal.hearts) + "</div>");
+				content.append("<div class='cards d'>" + hand.getSuit(deal.diamonds) + "</div>");
+				content.append("<div class='cards c'>" + hand.getSuit(deal.clubs) + "</div>");
 				return content;
 			};
 
@@ -462,6 +462,19 @@
 				break;
 			}
 			return s.indexOf(card.getRank()) >= 0;
+		},
+
+		getSuit: function(suit) {
+			switch (suit) {
+			case deal.spades:
+				return this.spades;
+			case deal.hearts:
+				return this.hearts;
+			case deal.diamonds:
+				return this.diamonds;
+			case deal.clubs:
+				return this.clubs;
+			}
 		},
 
 		toString: function() {
