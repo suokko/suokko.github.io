@@ -168,4 +168,82 @@ describe("Card class suit", function() {
 		expect(function() { c = card.parseCard('4', '2'); }).toThrow();
 		expect(function() { c = card.parseCard('$', '2'); }).toThrow();
 	});
+
+	it("Adding alternative", function() {
+		var a, b;
+
+		expect(function() { c = card.parseCard('♣', 'a'); }).not.toThrow();
+		expect(c.suit).toBe(deal.clubs);
+		expect(c.rank).toBe(14);
+		expect(c.getRank()).toBe('A');
+		expect(c.toString()).toBe('♣A');
+
+		expect(function() { a = card.parseCard('D', '4'); }).not.toThrow();
+		expect(a.suit).toBe(deal.diamonds);
+		expect(a.rank).toBe(4);
+		expect(a.getRank()).toBe('4');
+		expect(a.toString()).toBe('♦4');
+
+		expect(function() { b = card.parseCard('D', '6'); }).not.toThrow();
+		expect(b.suit).toBe(deal.diamonds);
+		expect(b.rank).toBe(6);
+		expect(b.getRank()).toBe('6');
+		expect(b.toString()).toBe('♦6');
+
+		expect(function() { c.appendAlternative(a); }).not.toThrow();
+		expect(c.suit).toBe(deal.clubs);
+		expect(c.rank).toBe(14);
+		expect(c.getRank()).toBe('A');
+		expect(c.toString()).toBe('♣A(♦4)');
+		expect(a.suit).toBe(deal.diamonds);
+		expect(a.rank).toBe(4);
+		expect(a.getRank()).toBe('4');
+		expect(a.toString()).toBe('♦4');
+		expect(b.suit).toBe(deal.diamonds);
+		expect(b.rank).toBe(6);
+		expect(b.getRank()).toBe('6');
+		expect(b.toString()).toBe('♦6');
+
+		expect(function() { a.appendAlternative(b); }).toThrow();
+		expect(c.suit).toBe(deal.clubs);
+		expect(c.rank).toBe(14);
+		expect(c.getRank()).toBe('A');
+		expect(c.toString()).toBe('♣A(♦4)');
+		expect(a.suit).toBe(deal.diamonds);
+		expect(a.rank).toBe(4);
+		expect(a.getRank()).toBe('4');
+		expect(a.toString()).toBe('♦4');
+		expect(b.suit).toBe(deal.diamonds);
+		expect(b.rank).toBe(6);
+		expect(b.getRank()).toBe('6');
+		expect(b.toString()).toBe('♦6');
+
+		expect(function() { c.appendAlternative(a); }).toThrow();
+		expect(c.suit).toBe(deal.clubs);
+		expect(c.rank).toBe(14);
+		expect(c.getRank()).toBe('A');
+		expect(c.toString()).toBe('♣A(♦4)');
+		expect(a.suit).toBe(deal.diamonds);
+		expect(a.rank).toBe(4);
+		expect(a.getRank()).toBe('4');
+		expect(a.toString()).toBe('♦4');
+		expect(b.suit).toBe(deal.diamonds);
+		expect(b.rank).toBe(6);
+		expect(b.getRank()).toBe('6');
+		expect(b.toString()).toBe('♦6');
+
+		expect(function() { c.appendAlternative(b); }).not.toThrow();
+		expect(c.suit).toBe(deal.clubs);
+		expect(c.rank).toBe(14);
+		expect(c.getRank()).toBe('A');
+		expect(c.toString()).toBe('♣A(♦4♦6)');
+		expect(a.suit).toBe(deal.diamonds);
+		expect(a.rank).toBe(4);
+		expect(a.getRank()).toBe('4');
+		expect(a.toString()).toBe('♦4');
+		expect(b.suit).toBe(deal.diamonds);
+		expect(b.rank).toBe(6);
+		expect(b.getRank()).toBe('6');
+		expect(b.toString()).toBe('♦6');
+	});
 });
