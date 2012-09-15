@@ -402,6 +402,10 @@
 			}
 		},
 
+		equals: function(b) {
+			return this.rank == b.rank && this.suit == b.suit;
+		},
+
 		toString: function() {
 			var r;
 
@@ -434,19 +438,55 @@
 	};
 
 	var cards = function(spades, hearts, diamonds, clubs) {
-		this.spades = spades.replace("10","T").split("").join(" ").replace("T", "10").replace("-", "—");
-		this.hearts = hearts.replace("10","T").split("").join(" ").replace("T", "10").replace("-", "—");
-		this.diamonds = diamonds.replace("10","T").split("").join(" ").replace("T", "10").replace("-", "—");
-		this.clubs = clubs.replace("10","T").split("").join(" ").replace("T", "10").replace("-", "—");
+		var invalid = [];
+		var duplicate = [];
+		var parseSuit = function(suit, text) {
+			var text = text.replace("10","T").replace("-", "");
+			var rv = [];
+			for (var i = 0; i < text.length; i++) {
+				var ch = text.charAt(i);
+				try {
+					rv.push(card.parseCard(suit, ch));
+				} catch(e) {
+					/* TODO Add validation message state */
+					invalid.push(ch);
+				}
+			}
+			rv = rv.sort(function(a, b) { return b.rank - a.rank; });
+			var j = 0;
+			for (var i = 1; i < rv.length; i++) {
+				if (rv[i - j - 1].equals(rv[i])) {
+					j++;
+					duplicate.push(rv[i]);
+				}
+				rv[i - j] = rv[i];
+			}
+			for (var i = 0; i < j; i++) {
+				rv.pop();
+			}
+			return rv;
+		};
+		this.spades = parseSuit('s', spades);
+		this.hearts = parseSuit('h', hearts);
+		this.diamonds = parseSuit('d', diamonds);
+		this.clubs = parseSuit('c', clubs);
+		this.valid = [];
+		if (invalid.length != 0)
+			this.valid.push("There are invalid ranks for a card (" + invalid.join(", ") + ").");
+		if (duplicate.length != 0)
+			this.valid.push("There are duplicate cards in the hand (" + duplicate.join(", ") + ").");
+		var total_cards = this.spades.length + this.hearts.length + this.diamonds.length + this.clubs.length;
+		if (total_cards > 13)
+			this.valid.push("There are " + total_cards + " cards.");
 	};
 
 	cards.prototype = {
 		validate: function(element) {
-			return true;
+			return this.valid.join("<br/>");
 		},
 
 		hasCard: function(card) {
-			var s;
+			var s = null;
 			switch (card.suit) {
 			case deal.spades:
 				s = this.spades;
@@ -461,27 +501,44 @@
 				s = this.clubs;
 				break;
 			}
-			return s.indexOf(card.getRank()) >= 0;
+			for (var i = 0; i < s.length; i++) {
+				if (s[i].equals(card))
+					return true;
+			}
+			return false;
 		},
 
 		getSuit: function(suit) {
+			var s = null;
 			switch (suit) {
 			case deal.spades:
-				return this.spades;
+				s = this.spades;
+				break;
 			case deal.hearts:
-				return this.hearts;
+				s = this.hearts;
+				break;
 			case deal.diamonds:
-				return this.diamonds;
+				s = this.diamonds;
+				break;
 			case deal.clubs:
-				return this.clubs;
+				s = this.clubs;
+				break;
 			}
+			if (s.length == 0)
+				return "—";
+
+			var rv = [];
+			for (var i = 0; i < s.length; i++) {
+				rv.push(s[i].getRank());
+			}
+			return rv.join(" ");
 		},
 
 		toString: function() {
-			return this.spades + "<br />" +
-				this.hearts + "<br />" +
-				this.diamonds + "<br />" +
-				this.clubs;
+			return this.getSuit(deal.spades) + "<br />" +
+				this.getSuit(deal.hearts) + "<br />" +
+				this.getsuit(deal.diamonds) + "<br />" +
+				this.getSuit(deal.clubs);
 		},
 	};
 
