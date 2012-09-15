@@ -763,28 +763,6 @@
 		}
 
 	};
-	var rankToText = function(rank) {
-		switch(rank) {
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9:
-			case 10:
-				return rank.toString();
-			case 11:
-				return 'J';
-			case 12:
-				return 'Q';
-			case 13:
-				return 'K';
-			case 14:
-				return 'A';
-		}
-	};
 
 	var trickWinner = function(t, trump) {
 		var max_rank = 0;
@@ -821,7 +799,7 @@
 
 		next: function(d, elem) {
 			var splitText = function(node, rank, cls) {
-				var r = rankToText(rank);
+				var r = rank;
 				for (var i = 0; i < node.childNodes.length; i++) {
 					var nc = node.childNodes[i];
 					if (nc.nodeType != 3)
@@ -852,7 +830,7 @@
 			var player = elem.find(".toplay");
 			for (var i = 0; i < t.length; i++) {
 				var suit = t[i].suit;
-				var rank = t[i].rank;
+				var rank = t[i].getRank();
 				var suit_cls = suitToClass(suit);
 
 				/* Mark the card played */
@@ -947,11 +925,11 @@
 				}
 
 				var suit = t[i].suit;
-				var rank = t[i].rank;
+				var rank = t[i].getRank();
 
 				/* Unmark the played card */
 				var suit_elem = player.children(suitToClass(suit));
-				var span = suit_elem.children("span:contains(" + rankToText(rank) + ")");
+				var span = suit_elem.children("span:contains(" + rank + ")");
 
 				if (span.length == 0)
 					throw "Card not found when going back a trick: " + t[i];
