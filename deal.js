@@ -318,7 +318,7 @@
 			suit = deal.clubs;
 			break;
 		default:
-			throw "Not a suit";
+			throw "Not a suit: " + ch1;
 		}
 
 		switch (ch2) {
@@ -353,7 +353,7 @@
 			rank = 14;
 			break;
 		default:
-			throw "Not a card rank";
+			throw "Not a card rank: " + ch2;
 		}
 
 		return new card(suit, rank);
