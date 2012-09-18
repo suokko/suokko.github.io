@@ -568,7 +568,10 @@
 		unknown: 1024,
 
 		declare: function(text) {
-			this.declaration = text.replace("!S","♠").replace("!s", "♠").replace("!H", "♥").replace("!h", "♥").replace("!D", "♦").replace("!d", "♦").replace("!C", "♣").replace("!c", "♣");
+			if (text != null)
+				this.declaration = text.replace("!S","♠").replace("!s", "♠").replace("!H", "♥").replace("!h", "♥").replace("!D", "♦").replace("!d", "♦").replace("!C", "♣").replace("!c", "♣");
+			else
+				this.declaration = null;
 			return this;
 		},
 
