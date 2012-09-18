@@ -31,7 +31,7 @@ clean:
 	rm -rf src coverage
 
 start: coverage
-	cd coverage && ${PYTHON} ${SERVER} 8000 &
+	cd coverage && ${PYTHON} ${SERVER} 8000 > /dev/null 2> /dev/null &
 	touch start
 
 stop: start
