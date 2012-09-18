@@ -748,7 +748,7 @@
 		if (this.contract == null)
 			return;
 		/* Find who is declaring this contract */
-		for (var i = 0; i < this.bids.length; i++) {
+		for (i = i % 2; i < this.bids.length; i+=2) {
 			if (this.bids[i].bid & (this.contract.bid & bid.prototype.allsuits)) {
 				this.declarer = i % 4;
 				break;
