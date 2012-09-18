@@ -159,6 +159,7 @@
 
 .diagram .hand .cards .played {
 	opacity: 0.5;
+	visibility: visible;
 }
 
 .diagram .ew_wrapper {
