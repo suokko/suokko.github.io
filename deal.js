@@ -595,10 +595,6 @@
 
 			if (this.bid == this.pass) {
 				rv += "<tt class='pass'>Pass</tt>";
-			} else if (this.bid == this.dbl) {
-				rv += "<tt class='double'>X</tt>";
-			} else if (this.bid == this.rdbl) {
-				rv += "<tt class='redouble'>XX</tt>";
 			} else if (this.bid == this.question) {
 				rv += "<tt>?</tt>";
 			} else if (this.bid == this.unknown) {
@@ -624,6 +620,12 @@
 					break;
 				}
 				rv +=  level + "" + suit; 
+			}
+
+			if ((this.bid & this.dbl) == this.dbl) {
+				rv += "<tt class='double'>X</tt>";
+			} else if ((this.bid & this.rdbl) == this.rdbl) {
+				rv += "<tt class='redouble'>XX</tt>";
 			}
 
 			if (this.declaration != null) {
