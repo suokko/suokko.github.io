@@ -1,0 +1,55 @@
+describe("Bid suit", function() {
+	it("Test declaration", function() {
+		var bids;
+		expect(function() {bids = new biding("1S");}).not.toThrow();
+		var bid;
+		expect(function() {bid = bids.getBid(0);}).not.toThrow();
+		expect(bid.declaration).toBeNull();
+		expect(function() {bid.declare("One spade");}).not.toThrow();
+		expect(bid.declaration).toBe("One spade");
+		expect(function() {bid.declare("One ♠");}).not.toThrow();
+		expect(bid.declaration).toBe("One ♠");
+		expect(function() {bid.declare("One !S");}).not.toThrow();
+		expect(bid.declaration).toBe("One ♠");
+		expect(function() {bid.declare("One !s");}).not.toThrow();
+		expect(bid.declaration).toBe("One ♠");
+		expect(function() {bid.declare("One !H");}).not.toThrow();
+		expect(bid.declaration).toBe("One ♥");
+		expect(function() {bid.declare("One !h");}).not.toThrow();
+		expect(bid.declaration).toBe("One ♥");
+		expect(function() {bid.declare("One !D");}).not.toThrow();
+		expect(bid.declaration).toBe("One ♦");
+		expect(function() {bid.declare("One !d");}).not.toThrow();
+		expect(bid.declaration).toBe("One ♦");
+		expect(function() {bid.declare("One !C");}).not.toThrow();
+		expect(bid.declaration).toBe("One ♣");
+		expect(function() {bid.declare("One !c");}).not.toThrow();
+		expect(bid.declaration).toBe("One ♣");
+		expect(function() {bid.declare(null);}).not.toThrow();
+		expect(bid.declaration).toBeNull();
+	});
+
+	it("Test trump suit query", function() {
+		var bids;
+		expect(function() {bids = new biding("1CXR1D1H1S1NTPPP");}).not.toThrow();
+		var bid;
+		expect(function() {bid = bids.getBid(0);}).not.toThrow();
+		expect(bid.getTrump()).toBe(deal.clubs);
+		expect(function() {bid = bids.getBid(1);}).not.toThrow();
+		expect(bid.getTrump()).toBe(-1);
+		expect(function() {bid = bids.getBid(2);}).not.toThrow();
+		expect(bid.getTrump()).toBe(-1);
+		expect(function() {bid = bids.getBid(3);}).not.toThrow();
+		expect(bid.getTrump()).toBe(deal.diamonds);
+		expect(function() {bid = bids.getBid(4);}).not.toThrow();
+		expect(bid.getTrump()).toBe(deal.hearts);
+		expect(function() {bid = bids.getBid(5);}).not.toThrow();
+		expect(bid.getTrump()).toBe(deal.spades);
+		expect(function() {bid = bids.getBid(6);}).not.toThrow();
+		expect(bid.getTrump()).toBe(-1);
+		expect(function() {bid = bids.getBid(7);}).not.toThrow();
+		expect(bid.getTrump()).toBe(-1);
+		expect(function() {bid = bids.getBid(8);}).not.toThrow();
+		expect(bid.getTrump()).toBe(-1);
+	});
+});
