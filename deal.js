@@ -730,13 +730,19 @@
 
 		var passes = - 1;
 		var p = 0;
+		var extras = 0;
 
 		/* Check if biding end to 3 passes and figure out the contract */
 		for (var i = this.bids.length; i-- > 0;) {
 			if (this.bids[i].bid == bid.prototype.pass)
 				p++;
-			else if (passes < 0)
+			else if (passes < 0) {
 				passes = p;
+				if (this.bids[i].bid == bid.prototype.dbl ||
+						this.bids[i].bid == bid.prototype.rdbl) {
+					extras = this.bids[i].bid;
+				}
+			}
 
 			if (this.bids[i].bid & bid.prototype.allsuits) {
 				if (passes == 3)
@@ -747,6 +753,10 @@
 
 		if (this.contract == null)
 			return;
+
+		this.contract = $.extend(true, {}, this.contract);
+		this.contract.bid += extras;
+
 		/* Find who is declaring this contract */
 		for (i = i % 2; i < this.bids.length; i+=2) {
 			if (this.bids[i].bid & (this.contract.bid & bid.prototype.allsuits)) {
