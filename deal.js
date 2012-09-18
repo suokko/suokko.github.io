@@ -605,7 +605,7 @@
 				var suit = this.bid >> 5;
 				switch (suit) {
 				case 1:
-					suit = "<tt>NT</tt>";
+					suit = "NT";
 					break;
 				case 2:
 					suit = "<tt class='sblack'>♠</tt>";
