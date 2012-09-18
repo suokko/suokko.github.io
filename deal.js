@@ -619,12 +619,13 @@
 					suit = "<tt class='sblack'>♣</tt>";
 					break;
 				}
-				rv +=  level + "" + suit; 
+				if (level != 0 && suit != 0)
+					rv +=  level + "" + suit;
 			}
 
-			if ((this.bid & this.dbl) == this.dbl) {
+			if ((this.bid & 3) == this.dbl) {
 				rv += "<tt class='double'>X</tt>";
-			} else if ((this.bid & this.rdbl) == this.rdbl) {
+			} else if ((this.bid & 3) == this.rdbl) {
 				rv += "<tt class='redouble'>XX</tt>";
 			}
 
