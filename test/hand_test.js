@@ -126,7 +126,7 @@ describe("Cards in hand class suit", function() {
 	it("Check duplicate card", function() {
 		var h;
 
-		expect(function() { h = new hand("AKQJTA", "akqjt", "102", "-"); }).not.toThrow();
+		expect(function() { h = new hand("AKQAJTA", "aqkqjkt", "102", "-"); }).not.toThrow();
 		expect(h.hasCard(card.parseCard('S', 'A'))).toBe(true);
 		expect(h.hasCard(card.parseCard('S', 'K'))).toBe(true);
 		expect(h.hasCard(card.parseCard('S', 'Q'))).toBe(true);
@@ -148,7 +148,7 @@ describe("Cards in hand class suit", function() {
 		expect(h.hasCard(card.parseCard('C', '2'))).toBe(false);
 		expect(h.hasCard(card.parseCard('C', 'A'))).toBe(false);
 		expect(h.hasCard(card.parseCard('C', '9'))).toBe(false);
-		expect(h.validate()).toBe("There are duplicate cards in the hand (♠A).");
+		expect(h.validate()).toBe("There are duplicate cards in the hand (♠A, ♠A, ♥K, ♥Q).");
 		expect(h.getSuit(deal.spades)).toBe("A K Q J 10");
 		expect(h.getSuit(deal.hearts)).toBe("A K Q J 10");
 		expect(h.getSuit(deal.diamonds)).toBe("10 2");
