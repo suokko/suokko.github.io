@@ -352,6 +352,10 @@
 		case 'a':
 			rank = 14;
 			break;
+		case 'X':
+		case 'x':
+			rank = 1;
+			break;
 		default:
 			throw "Not a card rank: " + ch2;
 		}
@@ -399,6 +403,8 @@
 				return 'K';
 			case 14:
 				return 'A';
+			case 1:
+				return 'x';
 			}
 		},
 
