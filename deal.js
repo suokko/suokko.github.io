@@ -461,7 +461,7 @@
 			rv = rv.sort(function(a, b) { return b.rank - a.rank; });
 			var j = 0;
 			for (var i = 1; i < rv.length; i++) {
-				if (rv[i - j - 1].equals(rv[i])) {
+				if (rv[i - j - 1].equals(rv[i]) && rv[i].rank != 1) {
 					j++;
 					duplicate.push(rv[i]);
 				}
