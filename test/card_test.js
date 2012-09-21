@@ -150,6 +150,18 @@ describe("Card class suit", function() {
 		expect(c.rank).toBe(14);
 		expect(c.getRank()).toBe('A');
 		expect(c.toString()).toBe('♣A');
+
+		expect(function() { c = card.parseCard('♣', 'X'); }).not.toThrow();
+		expect(c.suit).toBe(deal.clubs);
+		expect(c.rank).toBe(1);
+		expect(c.getRank()).toBe('x');
+		expect(c.toString()).toBe('♣x');
+
+		expect(function() { c = card.parseCard('♣', 'X'); }).not.toThrow();
+		expect(c.suit).toBe(deal.clubs);
+		expect(c.rank).toBe(1);
+		expect(c.getRank()).toBe('x');
+		expect(c.toString()).toBe('♣x');
 	});
 
 	it("Invalid input parsing", function() {
