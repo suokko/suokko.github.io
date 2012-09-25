@@ -140,7 +140,7 @@
 				return table;
 			};
 
-			var info_right = this.hands[deal.east] != null && this.hands[deal.north] == null ? " right" : "";
+			var info_right = this.hands[(deal.west + this.follow) % 4] != null && this.hands[(deal.north + this.follow) % 4] == null ? " right" : "";
 			var content;
 			
 			if (this.number != null) {
