@@ -5,7 +5,8 @@ SERVER?=/usr/lib/python2.7/SimpleHTTPServer.py
 
 SOURCES=$(wildcard *.js)
 
-TESTFILES=$(shell find test -type f)
+TESTFILES=$(shell find test -type f) \
+	$(wildcard *.css)
 
 all: test
 
@@ -13,8 +14,9 @@ test: coverage/jscoverage.html Makefile start
 	${BROWSER} http://localhost:8000/jscoverage.html?test/unittest.html
 
 coverage/jscoverage.html: ${addprefix src/, ${SOURCES}} ${TESTFILES} Makefile
-	 ${JSCOVERAGE} --encoding=UTF-8 src coverage
-	 cp -r test coverage/
+	${JSCOVERAGE} --encoding=UTF-8 src coverage
+	cp -r test coverage/
+	cp $(wildcard *.css) coverage/
 
 ${addprefix src/, ${SOURCES}}: src Makefile
 
