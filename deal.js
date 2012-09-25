@@ -356,6 +356,10 @@
 		case 'x':
 			rank = 1;
 			break;
+		case 'H':
+		case 'h':
+			rank = 15;
+			break;
 		default:
 			throw "Not a card rank: " + ch2;
 		}
@@ -405,6 +409,8 @@
 				return 'A';
 			case 1:
 				return 'x';
+			case 15:
+				return 'H';
 			}
 		},
 
@@ -461,7 +467,7 @@
 			rv = rv.sort(function(a, b) { return b.rank - a.rank; });
 			var j = 0;
 			for (var i = 1; i < rv.length; i++) {
-				if (rv[i - j - 1].equals(rv[i]) && rv[i].rank != 1) {
+				if (rv[i - j - 1].equals(rv[i]) && rv[i].rank != 1 && rv[i].rank != 15) {
 					j++;
 					duplicate.push(rv[i]);
 				}

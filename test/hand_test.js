@@ -158,7 +158,7 @@ describe("Cards in hand class suit", function() {
 	it("Check invalid card", function() {
 		var h;
 
-		expect(function() { h = new hand("AKQJ01", "akqjh", "102", "-"); }).not.toThrow();
+		expect(function() { h = new hand("AKQJ01", "akqjs", "102", "-"); }).not.toThrow();
 		expect(h.hasCard(card.parseCard('S', 'A'))).toBe(true);
 		expect(h.hasCard(card.parseCard('S', 'K'))).toBe(true);
 		expect(h.hasCard(card.parseCard('S', 'Q'))).toBe(true);
@@ -180,7 +180,7 @@ describe("Cards in hand class suit", function() {
 		expect(h.hasCard(card.parseCard('C', '2'))).toBe(false);
 		expect(h.hasCard(card.parseCard('C', 'A'))).toBe(false);
 		expect(h.hasCard(card.parseCard('C', '9'))).toBe(false);
-		expect(h.validate()).toBe("There are invalid ranks for a card (0, 1, h).");
+		expect(h.validate()).toBe("There are invalid ranks for a card (0, 1, s).");
 		expect(h.getSuit(deal.spades)).toBe("A K Q J");
 		expect(h.getSuit(deal.hearts)).toBe("A K Q J");
 		expect(h.getSuit(deal.diamonds)).toBe("10 2");
@@ -220,7 +220,7 @@ describe("Cards in hand class suit", function() {
 	});
 
 	it("Multiple unkwon cards in a suit", function() {
-		expect(function() { h = new hand("KATXXX", "akqxx", "102", "-"); }).not.toThrow();
+		expect(function() { h = new hand("KATXXX", "hhqxx", "102", "-"); }).not.toThrow();
 		expect(h.hasCard(card.parseCard('S', 'A'))).toBe(true);
 		expect(h.hasCard(card.parseCard('S', 'K'))).toBe(true);
 		expect(h.hasCard(card.parseCard('S', 'T'))).toBe(true);
@@ -228,8 +228,9 @@ describe("Cards in hand class suit", function() {
 		expect(h.hasCard(card.parseCard('S', '9'))).toBe(false);
 		expect(h.hasCard(card.parseCard('S', '8'))).toBe(false);
 		expect(h.hasCard(card.parseCard('S', '2'))).toBe(false);
-		expect(h.hasCard(card.parseCard('H', 'A'))).toBe(true);
-		expect(h.hasCard(card.parseCard('H', 'K'))).toBe(true);
+		expect(h.hasCard(card.parseCard('H', 'H'))).toBe(true);
+		expect(h.hasCard(card.parseCard('H', 'A'))).toBe(false);
+		expect(h.hasCard(card.parseCard('H', 'K'))).toBe(false);
 		expect(h.hasCard(card.parseCard('H', 'Q'))).toBe(true);
 		expect(h.hasCard(card.parseCard('H', 'x'))).toBe(true);
 		expect(h.hasCard(card.parseCard('H', 'J'))).toBe(false);
@@ -244,7 +245,7 @@ describe("Cards in hand class suit", function() {
 		expect(h.hasCard(card.parseCard('C', '9'))).toBe(false);
 		expect(h.validate()).toBe("");
 		expect(h.getSuit(deal.spades)).toBe("A K 10 x x x");
-		expect(h.getSuit(deal.hearts)).toBe("A K Q x x");
+		expect(h.getSuit(deal.hearts)).toBe("H H Q x x");
 		expect(h.getSuit(deal.diamonds)).toBe("10 2");
 		expect(h.getSuit(deal.clubs)).toBe("—");
 	});
