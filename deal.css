@@ -394,8 +394,5 @@ li.post_group_link_list ol {
 }
 
 span.star:after {
-	color: yellow;
-	line-height: 1.0;
-/*	content: url('star.svg'); */
-	height: 0.9em;
+	content: url('star.png');
 }
