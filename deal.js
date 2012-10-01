@@ -267,8 +267,6 @@
 				if (this.declarer != null) {
 					if (this.declarer == i)
 						content.addClass("declarer");
-					else if ((this.declarer + 2) % 4 == i)
-						content.addClass("dummy");
 					else if ((this.declarer + 3) % 4 == i)
 						content.addClass("toplay");
 				}
@@ -990,6 +988,8 @@
 			this.trick++;
 			if (t.length != 4)
 				return undefined;
+			if (this.cards.length == this.trick)
+				elem.find('.hidden').removeClass("hidden");
 			var ns = winner == 'north' || winner == 'south';
 			if (d.follow == deal.east || d.follow == deal.west)
 				ns = !ns;
@@ -997,6 +997,10 @@
 		},
 
 		prev: function(d, elem) {
+			if (this.cards.length == this.trick) {
+				elem.find('.north, .east, .west').addClass("hidden");
+				elem.find(".dummy").removeClass("hidden");
+			}
 			this.trick--;
 			this.clearPlayedCards(elem);
 			var t = this.cards[this.trick];
