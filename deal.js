@@ -275,6 +275,7 @@
 				elem.append(content);
 			}
 
+			elem.find(".declarer > .seat, .declarer > .name").append(elem.find('.contract').clone());
 		},
 	};
 
@@ -1065,8 +1066,7 @@
 			var next = $("<input type='button' class='next' value='Next'/><br/>");
 			controls.append(next);
 			var contract = $("<div class='contract'>"+ this.deal.bids.contract.toString() +"</div>");
-			controls.append(contract.clone());
-			this.element.find(".declarer > .seat, .declarer > .name").append(contract);
+			controls.append(contract);
 
 			this.tricks_ns = $("<div class='tricks ns'>0</div>");
 			controls.append(this.tricks_ns);
