@@ -155,7 +155,7 @@
 
 			/* Figure out the declarer */
 			this.declarer = null;
-			if (this.bids != null && this.bids.declarer != null) {
+			if (this.bids != null && this.bids.declarer != null && this.play != null) {
 				var number = this.number != null ? this.number - 1 : 0;
 				var declarer = this.bids.declarer + number;
 				switch (declarer % 4) {
