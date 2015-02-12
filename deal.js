@@ -966,6 +966,8 @@
 				if (j & 1) {
 					animated.css({'margin-top': '-0.6em',
 							'top': '50%'})
+				} else {
+					animated.css({'margin-left': '-1em', 'left': '50%'});
 				}
 
 				elem.find('.playarea').append(animated);
