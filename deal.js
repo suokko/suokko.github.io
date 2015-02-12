@@ -851,6 +851,9 @@
 
 		this.cards = parsePlay(bbo_string);
 		this.trick = 0;
+		this.claimed = -1;
+		this.won_ns = -1;
+		this.won_ew = -1;
 	};
 
 	var suitToClass = function(suit) {
@@ -894,6 +897,7 @@
 
 	play.prototype = {
 		claim: function(tricks) {
+			this.claimed = tricks;
 			return this;
 		},
 
@@ -1106,10 +1110,21 @@
 					t.text(parseInt(t.text()) + 1);
 				}
 
+				if (_this.trick == _this.cards.length && _this.claimed != -1) {
+					_this.won_ns = parseInt(_this.tricks_ns.text());
+					_this.won_ew = parseInt(_this.tricks_ew.text());
+					_this.tricks_ns.text(_this.claimed);
+					_this.tricks_ew.text(13 - _this.claimed);
+				}
+
 				disableButtons(_this.trick, _this.cards.length);
 			});
 			prev.click(function(ev) {
 				enableButtons(_this.trick, _this.cards.length);
+				if (_this.trick == _this.cards.length && _this.claimed != -1) {
+					_this.tricks_ns.text(_this.won_ns);
+					_this.tricks_ew.text(_this.won_ew);
+				}
 				var w = _this.prev(_this.deal, _this.element);
 				if (w !== undefined) {
 					var t;
