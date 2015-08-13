@@ -316,7 +316,7 @@ table.results {
 }
 
 .bids .bid.alert {
-	background: lightYellow;
+	background: rgb(255, 255, 190);
 	border: thin solid lightOrange;
 	border-radius: 5px;
 	box-shadow: 0 0 3px 1px rgba(255, 165, 0, 0.8);
