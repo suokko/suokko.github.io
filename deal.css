@@ -323,7 +323,8 @@ table.results {
 	margin: 1px;
 }
 
-.bids .bid + .declaration {
+.bids .bid + div.declaration {
+	text-align: left;
 	display: none;
 	position: absolute;
 	border: thin none;
