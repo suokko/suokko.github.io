@@ -142,7 +142,7 @@
 
 			var info_right = this.hands[(deal.west + this.follow) % 4] != null && this.hands[(deal.north + this.follow) % 4] == null ? " right" : "";
 			var content;
-			
+
 			if (this.number != null) {
 				content = $("<div class='info" + info_right + "'>" +
 						"<tt class='number'>" + this.number +" </tt>"+
@@ -187,7 +187,7 @@
 						content.addClass("dummy");
 					else if ((this.declarer + 3) % 4 == i)
 						content.addClass("toplay");
-					content.addClass("hidden");
+					content.addClass("hidden_deal");
 				}
 				elem.append(content);
 			}
@@ -204,7 +204,7 @@
 						content.addClass("dummy");
 					else if ((this.declarer + 3) % 4 == i)
 						content.addClass("toplay");
-					content.addClass("hidden");
+					content.addClass("hidden_deal");
 				}
 				elem.append(content);
 				clear_div += 1;
@@ -220,7 +220,7 @@
 						content.addClass("dummy");
 					else if ((this.declarer + 3) % 4 == i)
 						content.addClass("toplay");
-					content.addClass("hidden");
+					content.addClass("hidden_deal");
 				}
 				elem.append(content);
 				clear_div += 2;
@@ -240,9 +240,9 @@
 					clear = "right";
 				else if (clear_div = 3)
 					clear = "both";
-				elem.append($("<div class='clear'/>").css("clear", clear)); 
+				elem.append($("<div class='clear'/>").css("clear", clear));
 			}
-			
+
 			/* Create a ew wrapper div to scale playing area */
 			if (this.play != null) {
 				elem.children(".west, .east, .clear, .playarea").wrapAll("<div class='ew_wrapper'/>");
@@ -693,7 +693,7 @@
 				case '5':
 				case '6':
 				case '7':
-					var val = ch.charCodeAt(0); 
+					var val = ch.charCodeAt(0);
 					var one = '1'.charCodeAt(0);
 					var bid_val = bid.prototype.level1;
 					level = (val - one + 1) * bid_val;
@@ -912,7 +912,7 @@
 					var nc = node.childNodes[i];
 					if (nc.nodeType != 3)
 						continue;
-					
+
 					var pos = nc.data.indexOf(r);
 
 					if (pos < 0)
@@ -974,7 +974,7 @@
 
 				/* Show dummy after lead */
 				if (this.trick == 0 && i == 0) {
-					elem.find(".dummy").removeClass("hidden");
+					elem.find(".dummy").removeClass("hidden_deal");
 				}
 
 				/* Move play turn to next player */
@@ -995,7 +995,7 @@
 			if (t.length != 4)
 				return undefined;
 			if (this.cards.length == this.trick)
-				elem.find('.hidden').removeClass("hidden");
+				elem.find('.hidden_deal').removeClass("hidden_deal");
 			var ns = winner == 'north' || winner == 'south';
 			if (d.follow == deal.east || d.follow == deal.west)
 				ns = !ns;
@@ -1004,8 +1004,8 @@
 
 		prev: function(d, elem) {
 			if (this.cards.length == this.trick) {
-				elem.find('.north, .east, .west').addClass("hidden");
-				elem.find(".dummy").removeClass("hidden");
+				elem.find('.north, .east, .west').addClass("hidden_deal");
+				elem.find(".dummy").removeClass("hidden_deal");
 			}
 			this.trick--;
 			this.clearPlayedCards(elem);
@@ -1054,7 +1054,7 @@
 			}
 
 			if (this.trick == 0)
-				elem.find('.dummy').addClass('hidden');
+				elem.find('.dummy').addClass('hidden_deal');
 
 			if (t.length != 4)
 				return undefined;
