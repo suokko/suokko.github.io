@@ -1,1 +1,26 @@
-Hello World
+<html>
+    <head>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.1.js"></script>
+        <script type="text/javascript" src=deal.js  charset=utf-8></script>
+        <link rel="stylesheet" type="text/css"  href=deal.css  charset=utf-8 />
+    </head>
+    <body>
+        <h1>Deal example</h1>
+        <div class=diagram id=deal25></div>
+        <script type="text/javascript">
+            (function() {
+                var d = new deal(25);
+                d.addHand(deal.south, new hand("74", "87654", "K854", "85"));
+                d.addPlayer(deal.south, "Pauli");
+                d.addHand(deal.north, new hand("AQ2", "AQ1032", "A976", "6"));
+                d.addPlayer(deal.north, "Juho");
+                d.addHand(deal.west, new hand("KJ63", "J", "QJ103", "AQ72"));
+                d.addHand(deal.east, new hand("10985", "K9", "2", "KJ10943"));
+                d.addBiding(new biding("1HP4HPPP"));
+                d.addPlay(new play("sTs4s3sQc6c9c5c2c3c8cAh2hAh9h4hJsAs5s7s6s2s8h5sJh6c7hThKd2d4dTdAd6c4d8dJ").claim(10));
+                d.kibitz(deal.north);
+                d.generate($("#deal25"));
+            })();
+        </script>
+    </body>
+</html>
